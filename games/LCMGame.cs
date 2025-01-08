@@ -2,39 +2,28 @@
 {
     public static class LCMGame
     {
-        private const int RoundsCount = 3;
         private const int MinNumber = 1;
         private const int MaxNumber = 100;
 
-        public static void Run(string userName)
+        public static void StartGame(string userName)
         {
-            Console.WriteLine("Find the smallest common multiple of given numbers.");
+            string description = "Find the smallest common multiple of given numbers.";
 
             var random = new Random();
 
-            for (int round = 0; round < RoundsCount; round++)
+            (string question, string correctAnswer) GenerateRound()
             {
                 int a = random.Next(MinNumber, MaxNumber + 1);
                 int b = random.Next(MinNumber, MaxNumber + 1);
                 int c = random.Next(MinNumber, MaxNumber + 1);
 
-                Console.WriteLine($"Question: {a} {b} {c}");
-                Console.Write("Your answer: ");
-                string? userAnswer = Console.ReadLine();
+                string question = $"{a} {b} {c}";
 
-                int correctAnswer = Lcm(a, b, c);
-
-                if (!int.TryParse(userAnswer, out int answer) || answer != correctAnswer)
-                {
-                    Console.WriteLine($"'{userAnswer}' is wrong answer ;(. Correct answer was '{correctAnswer}'.");
-                    Console.WriteLine($"Let's try again, {userName}!");
-                    return;
-                }
-
-                Console.WriteLine("Correct!");
+                int correct = Lcm(a, b, c);
+                return (question, correct.ToString());
             }
 
-            Console.WriteLine($"Congratulations, {userName}!");
+            Engine.RunGame(description, GenerateRound, userName);
         }
 
         private static int Lcm(int a, int b, int c)
@@ -59,3 +48,4 @@
         }
     }
 }
+

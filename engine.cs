@@ -1,5 +1,4 @@
-﻿
-namespace BrainGames
+﻿namespace BrainGames
 {
     public static class Engine
     {
@@ -7,6 +6,7 @@ namespace BrainGames
 
         public delegate (string question, string correctAnswer) RoundData();
 
+        
         public static void RunGame(string description, RoundData generateRound, string userName)
         {
             Console.WriteLine(description);
@@ -16,6 +16,7 @@ namespace BrainGames
                 var (question, correctAnswer) = generateRound();
 
                 Console.WriteLine($"Question: {question}");
+
                 Console.Write("Your answer: ");
                 string? userAnswer = Console.ReadLine();
 
@@ -28,7 +29,6 @@ namespace BrainGames
 
                 Console.WriteLine("Correct!");
             }
-
             Console.WriteLine($"Congratulations, {userName}!");
         }
     }
